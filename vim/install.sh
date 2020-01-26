@@ -15,6 +15,14 @@ mv *.ttf ${HOME}/.fonts/
 popd
 
 
+git clone https://github.com/vim/vim.git
+pushd vim
+
+./configure --prefix=$HOME/usr && make -j5 && make install
+
+popd
+
+
 git clone https://github.com/Shougo/dein.vim ${HOME}/.cache/dein/repos/github.com/Shougo/dein.vim
 
 
