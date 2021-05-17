@@ -37,6 +37,7 @@ curl -LO https://www.python.org/ftp/python/3.9.5/Python-3.9.5.tgz
 tar xz < Python-3.9.5.tgz
 cd Python-3.9.5
 ./configure --prefix=$HOME/usr --enable-shared --with-ensurepip=yes --enable-optimizations --with-system-expat --with-system-ffi --enable-ipv6 --with-openssl=$HOME/usr/
+make -j5 && make install
 cd -
 
 LD_LIBRARY_PATH=$HOME/usr/lib ~/usr/bin/pip3 install pynvim neovim
@@ -53,12 +54,12 @@ popd
 
 
 git clone https://github.com/vim/vim.git
-pushd vim
+cd vim
 
-./configure --prefix=$HOME/usr --with-features=huge --enable-python3interp=dynamic --enable-gpm --enable-acl --with-x=no --disable-gui --enable-multibyte --enable-cscope --disable-camberra --enable-fail-if-missing && make -j5 && make install
+LD_LIBRARY_PATH=$HOME/usr/lib ./configure --prefix=$HOME/usr --with-features=huge --enable-python3interp=dynamic --with-python3-command=$HOME/usr/bin/python3 --enable-gpm --enable-acl --without-x --disable-gui --enable-multibyte --enable-cscope --disable-canberra --disable-netbeans --enable-fail-if-missing
+make -j5 && make install
 
-
-popd
+cd -
 
 
 git clone https://github.com/Shougo/dein.vim ${HOME}/.cache/dein/repos/github.com/Shougo/dein.vim
