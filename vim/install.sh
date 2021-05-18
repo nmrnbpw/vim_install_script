@@ -7,9 +7,12 @@ if [ -f /etc/debian_version ]; then
   # vim, python
   su -c "apt-get install curl ncurses-dev gcc make libexpat-dev libffi-dev zlib1g-dev -y"
   # libressl
-  # su -c "apt-get install automake autoconf libtool -y"
+  su -c "apt-get install automake autoconf libtool -y"
+  # rust
+  su -c "apt-get install rustc -y"
   # coc.vim
-  su -c "apt-get install nodejs golang -y"
+  # su -c "apt-get install nodejs golang -y"
+  su -c "apt-get install nodejs -y"
 fi
 
 if [ -f /etc/redhat_release ]; then
@@ -40,7 +43,35 @@ cd Python-3.9.5
 make -j5 && make install
 cd -
 
+# python package
 LD_LIBRARY_PATH=$HOME/usr/lib ~/usr/bin/pip3 install pynvim neovim
+
+# universal ctags
+git clone https://github.com/universal-ctags/ctags.git
+cd ctags
+./autogen.sh
+./configure --prefix=$HOME/usr
+make -j5 && make install
+cd -
+
+# golang
+curl -LO https://golang.org/dl/go1.16.4.linux-amd64.tar.gz
+tar xz < go1.16.4.linux-amd64.tar.gz
+
+# fzf
+git clone https://github.com/junegunn/fzf.git
+cd fzf
+PATH=../go/bin:$PATH make -j5
+make install
+cp bin/fzf $HOME/usr/bin/.
+cd -
+
+# ripgrep
+git clone https://github.com/BurntSushi/ripgrep.git
+cd ripgrep
+cargo build --release
+cp target/release/rg $HOME/usr/bin/.
+cd -
  
 ### Cica
 mkdir -p cica
