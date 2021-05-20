@@ -15,8 +15,8 @@ if [ -f /etc/debian_version ]; then
   su -c "apt-get install nodejs -y"
 fi
 
-if [ -f /etc/redhat_release ]; then
-  sudo yum install unzip ncurses-devel python3-devel -y
+if [ -f /etc/redhat-release ]; then
+  sudo yum install unzip ncurses-devel expat-devel libffi-devel xz-devel -y
 fi
 
 ### LibreSSL
