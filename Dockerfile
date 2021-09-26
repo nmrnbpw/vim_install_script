@@ -30,11 +30,12 @@ RUN git clone https://github.com/openssl/openssl.git
 WORKDIR openssl
 RUN git checkout OpenSSL_1_1_1-stable
 RUN ./config --prefix=/works/usr && make -j5 && make install_sw
-WORKDIR ..-
+WORKDIR ..
 
 RUN curl -LO https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz && tar xz < Python-3.9.7.tgz
 WORKDIR Python-3.9.7
-RUN ./configure --prefix=/works/usr --enable-shared --with-ensurepip=yes --enable-optimizations --with-system-expat --with-system-ffi --enable-ipv6 --with-openssl=/works/usr/ && make -j5 && make install
+RUN ./configure --prefix=/works/usr --enable-shared --with-ensurepip=yes --enable-optimization
+s --with-system-expat --with-system-ffi --enable-ipv6 --with-openssl=/works/usr/ --enable-optimizations && LD_LIBRARY_PATH=/works/usr/lib make -j5 && LD_LIBRARY_PATH=/works/usr/lib make install
 RUN LD_LIBRARY_PATH=/works/usr/lib /works/usr/bin/pip3 install pip -U && LD_LIBRARY_PATH=/works/usr/lib /works/usr/bin/pip3 install pynvim neovim
 WORKDIR ..
 
