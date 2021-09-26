@@ -17,3 +17,12 @@ install script for CentOS
 1. add `$HOME/usr/bin` to `$PATH`
 1. start vim and `:call dein#update()`
 
+
+Use Docker
+
+e.g.
+
+```
+docker build -t build_vm:latest - < Dockerfile
+```
+
