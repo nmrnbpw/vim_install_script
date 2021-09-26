@@ -29,15 +29,13 @@ RUN apt-get install -y libexpat-dev libffi-dev zlib1g-dev automake autoconf libt
 RUN git clone https://github.com/openssl/openssl.git
 WORKDIR openssl
 RUN git checkout OpenSSL_1_1_1-stable
-RUN ./config --prefix=/works/usr && make -j5 && make install
+RUN ./config --prefix=/works/usr && make -j5 && make install_sw
 WORKDIR ..-
 
-RUN curl -LO https://www.python.org/ftp/python/3.9.5/Python-3.9.5.tgz && tar xz < Python-3.9.5.tgz
-WORKDIR Python-3.9.5
-RUN ./configure --prefix=/works/usr --enable-shared --with-ensurepip=yes --enable-optimizations --with-system-expat --with-system-ffi --enable-ipv6 --with-openssl=/works/usr/
-RUN make -j5 && make install
-RUN LD_LIBRARY_PATH=/works/usr/lib /works/usr/bin/pip3 install pip -U
-RUN LD_LIBRARY_PATH=/works/usr/lib /works/usr/bin/pip3 install pynvim neovim
+RUN curl -LO https://www.python.org/ftp/python/3.9.7/Python-3.9.7.tgz && tar xz < Python-3.9.7.tgz
+WORKDIR Python-3.9.7
+RUN ./configure --prefix=/works/usr --enable-shared --with-ensurepip=yes --enable-optimizations --with-system-expat --with-system-ffi --enable-ipv6 --with-openssl=/works/usr/ && make -j5 && make install
+RUN LD_LIBRARY_PATH=/works/usr/lib /works/usr/bin/pip3 install pip -U && LD_LIBRARY_PATH=/works/usr/lib /works/usr/bin/pip3 install pynvim neovim
 WORKDIR ..
 
 
