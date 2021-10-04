@@ -4,8 +4,6 @@ FROM build_vm:latest
 WORKDIR /works/usr
 WORKDIR /works
 
-RUN apt-get -y install gettext jq
-
 RUN git clone https://github.com/tmux/tmux
 WORKDIR tmux
 RUN sh autogen.sh
@@ -32,27 +30,27 @@ WORKDIR ..
 
 RUN git clone https://github.com/BurntSushi/ripgrep.git
 WORKDIR ripgrep
-RUN cargo build --release -j6 && cp target/release/rg /works/usr/bin/.
+RUN . $HOME/.cargo/env && cargo build --release -j6 && cp target/release/rg /works/usr/bin/.
 WORKDIR ..
 
 RUN git clone https://github.com/sharkdp/bat.git
 WORKDIR bat
-RUN cargo build --release -j6 && cp target/release/bat /works/usr/bin/.
+RUN . $HOME/.cargo/env && cargo build --release -j6 && cp target/release/bat /works/usr/bin/.
 WORKDIR ..
 
 RUN git clone https://github.com/sharkdp/fd.git
 WORKDIR fd
-RUN cargo build --release -j6 && cp target/release/fd /works/usr/bin/.
+RUN . $HOME/.cargo/env && cargo build --release -j6 && cp target/release/fd /works/usr/bin/.
 WORKDIR ..
 
 RUN git clone https://github.com/Peltoche/lsd.git
 WORKDIR lsd
-RUN cargo build --release -j6 && cp target/release/lsd /works/usr/bin/.
+RUN . $HOME/.cargo/env && cargo build --release -j6 && cp target/release/lsd /works/usr/bin/.
 WORKDIR ..
 
 RUN git clone https://github.com/starship/starship.git
 WORKDIR starship
-RUN cargo build --release -j6 && cp target/release/starship /works/usr/bin/.
+RUN . $HOME/.cargo/env && cargo build --release -j6 && cp target/release/starship /works/usr/bin/.
 WORKDIR ..
 
 RUN git clone https://github.com/vim/vim.git
