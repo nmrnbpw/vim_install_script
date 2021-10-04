@@ -1,12 +1,9 @@
 FROM ruby:3.0.2-slim-bullseye
 
-RUN apt-get update -qq && apt-get install -y build-essential git curl
+RUN apt-get update -qq && apt-get install -y build-essential git curl ncurses-dev libevent-dev pkg-config automake bison libexpat-dev libffi-dev zlib1g-dev automake autoconf libtool golang-go jq gettext
 
 WORKDIR /works
-RUN apt-get install -y ncurses-dev libevent-dev pkg-config automake bison libexpat-dev libffi-dev zlib1g-dev automake autoconf libtool golang-go jq gettext
-RUN curl -LO https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init && chmod 755 rustup-init
-RUN ./rustup-init -q -y
-RUN . $HOME/.cargo/env
+RUN curl -LO https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init && chmod 755 rustup-init && ./rustup-init -q -y
 
 # ADD . /works
 RUN git clone https://github.com/openssl/openssl.git
