@@ -58,7 +58,7 @@ WORKDIR ..
 ENV token "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"
 
 COPY release.sh /works/
-RUN tar czf $file_path usr/ && ./release.sh
+RUN tar czf usr.tar.gz usr/ && ./release.sh
 
 # RUN echo curl -X POST -H "Content-Type: $(file -b --mime-type $file_path)" -H "Authorization: token $token" --data-binary @$file_path "https://uploads.github.com/repos/$repository_path/releases/$release_id/assets?name=$(basename $file_path)"
 # RUN curl -X POST -H "Content-Type: $(file -b --mime-type $file_path)" -H "Authorization: token $token" --data-binary @$file_path "https://uploads.github.com/repos/$repository_path/releases/$release_id/assets?name=$(basename $file_path)"
