@@ -1,0 +1,24 @@
+version: '3'
+services:
+  for_docker:
+    container_name: 4docker
+    build:
+      context: 4docker
+      dockerfile: Dockerfile
+    volumes:
+      - ./4docker/build:/build
+      - ./4docker/scripts:/scripts
+    # environment:
+    #   - PATH=/root/.cargo/bin:$$PATH
+    tty: true
+  for_wsl:
+    container_name: 4wsl
+    build:
+      context: 4wsl
+      dockerfile: Dockerfile
+    volumes:
+      - ./4wsl/build:/build
+      - ./4wsl/scripts:/scripts
+    #  environment:
+    #    - PATH=/root/.cargo/bin:$$PATH
+    tty: true
